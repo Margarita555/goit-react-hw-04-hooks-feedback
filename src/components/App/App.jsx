@@ -16,8 +16,6 @@ function App() {
   const [badFeedback, setBadFeedback] = useState(0);
 
   const onLeaveFeedback = label => {
-    // console.log(label);
-    // console.log(goodFeedback);
     switch (label) {
       case 'good':
         setGoodFeedback(state => state + 1);
