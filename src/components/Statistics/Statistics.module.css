@@ -1,0 +1,13 @@
+.title {
+  margin: 20px 0;
+}
+
+.item {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.value {
+  margin-left: 5px;
+}
