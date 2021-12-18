@@ -10,21 +10,21 @@ const initialState = {
   bad: 0,
 };
 
+function countReducer(state, feedbackType) {
+  switch (feedbackType) {
+    case 'good':
+      return { ...state, good: state.good + 1 };
+    case 'neutral':
+      return { ...state, neutral: state.neutral + 1 };
+    case 'bad':
+      return { ...state, bad: state.bad + 1 };
+    default:
+      throw new Error('Unsupported feedback type');
+  }
+}
+
 function App() {
   const [state, dispatch] = useReducer(countReducer, initialState);
-
-  function countReducer(state, feedbackType) {
-    switch (feedbackType) {
-      case 'good':
-        return { ...state, good: state.good + 1 };
-      case 'neutral':
-        return { ...state, neutral: state.neutral + 1 };
-      case 'bad':
-        return { ...state, bad: state.bad + 1 };
-      default:
-        throw new Error('Unsupported feedback type');
-    }
-  }
 
   const countTotalFeedback = () => {
     return Object.values(state).reduce((acc, value) => acc + value, 0);
