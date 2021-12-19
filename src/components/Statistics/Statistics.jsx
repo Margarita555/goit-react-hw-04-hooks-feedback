@@ -24,6 +24,7 @@ const Statistics = ({ statistics, total, positivePercentage }) => {
 };
 
 Statistics.propTypes = {
+  statistics: PropTypes.array.isRequired,
   total: PropTypes.number.isRequired,
   positivePercentage: PropTypes.number.isRequired,
 };

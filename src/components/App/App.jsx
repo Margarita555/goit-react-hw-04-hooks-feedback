@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useState } from 'react';
 import Section from '../Section/Section';
 import Statistics from '../Statistics/Statistics';
 import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
@@ -10,21 +10,26 @@ const initialState = {
   bad: 0,
 };
 
-function countReducer(state, feedbackType) {
-  switch (feedbackType) {
-    case 'good':
-      return { ...state, good: state.good + 1 };
-    case 'neutral':
-      return { ...state, neutral: state.neutral + 1 };
-    case 'bad':
-      return { ...state, bad: state.bad + 1 };
-    default:
-      throw new Error('Unsupported feedback type');
-  }
-}
+// function countReducer(state, feedbackType) {
+//   switch (feedbackType) {
+//     case 'good':
+//       return { ...state, good: state.good + 1 };
+//     case 'neutral':
+//       return { ...state, neutral: state.neutral + 1 };
+//     case 'bad':
+//       return { ...state, bad: state.bad + 1 };
+//     default:
+//       throw new Error('Unsupported feedback type');
+//   }
+// }
 
 function App() {
-  const [state, dispatch] = useReducer(countReducer, initialState);
+  // const [state, dispatch] = useReducer(countReducer, initialState);
+  const [state, setState] = useState(initialState);
+
+  const onLeaveFeedback = feedbackType => {
+    setState({ ...state, [feedbackType]: state[feedbackType] + 1 });
+  };
 
   const countTotalFeedback = () => {
     return Object.values(state).reduce((acc, value) => acc + value, 0);
@@ -33,8 +38,7 @@ function App() {
   const countPositiveFeedbackPercentage = () => {
     const total = countTotalFeedback();
     if (total) {
-      const positiveFeedbackPercentage = Math.round((state.good * 100) / total);
-      return positiveFeedbackPercentage;
+      return Math.round((state.good * 100) / total);
     }
   };
 
@@ -44,7 +48,7 @@ function App() {
   return (
     <div className="app">
       <Section title="Please leave feedback">
-        <FeedbackOptions options={options} onLeaveFeedback={dispatch} />
+        <FeedbackOptions options={options} onLeaveFeedback={onLeaveFeedback} />
         {total > 0 && (
           <Statistics
             statistics={statistics}
