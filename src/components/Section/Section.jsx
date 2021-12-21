@@ -11,6 +11,7 @@ const Section = ({ title, children }) => {
 };
 
 Section.propTypes = {
+  statistics: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   children: PropTypes.any,
 };
